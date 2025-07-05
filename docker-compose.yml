@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  persona-agent:
+    build: .
+    container_name: persona-ai-agent
+    restart: unless-stopped
+    
+    # 環境変数設定
+    environment:
+      - PYTHONPATH=/app
+      - NODE_PATH=/app/node_modules
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    
+    # 環境変数ファイル
+    env_file:
+      - .env
+    
+    # ボリュームマウント（開発時にファイル変更を反映）
+    volumes:
+      - .:/app
+      - node_modules_volume:/app/node_modules  # Node.jsモジュールはコンテナ内のものを使用
+    
+    # ポート設定
+    ports:
+      - "8000:8000"  # FastAPI用（将来拡張）
+      - "3001:3000"  # MARP serve用（ポート競合回避）
+    
+    # 作業ディレクトリ
+    working_dir: /app
+    
+    # コンテナ起動時のコマンド（インタラクティブモード）
+    command: /bin/bash
+    stdin_open: true
+    tty: true
+    
+    # ネットワーク設定
+    networks:
+      - persona-network
+
+  # 将来の拡張用（データベースなど）
+  # database:
+  #   image: postgres:15
+  #   container_name: persona-db
+  #   environment:
+  #     POSTGRES_DB: persona_db
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: password
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - persona-network
+
+networks:
+  persona-network:
+    driver: bridge
+
+volumes:
+  node_modules_volume:  # Node.jsモジュール用ボリューム
+  # 将来の拡張用
+  # postgres_data: 

@@ -1,0 +1,95 @@
+# ナレッジベース処理設定ファイル
+
+# サポートするファイル形式
+supported_formats:
+  - ".md"
+  - ".txt" 
+  - ".json"
+  - ".yml"
+  - ".yaml"
+
+# チャンク分割設定
+chunking:
+  chunk_size: 1000          # 1チャンクの最大文字数
+  chunk_overlap: 200        # チャンク間のオーバーラップ文字数
+  split_by_headers: true    # マークダウン見出しで分割
+  min_chunk_size: 100       # 最小チャンク文字数
+
+# メタデータ抽出対象フィールド
+metadata_fields:
+  - "date"
+  - "category" 
+  - "tags"
+  - "priority"
+  - "status"
+  - "industry"
+  - "customer_segment"
+  - "product_name"
+  - "version"
+  - "target_market"
+  - "resolution_status"
+  - "satisfaction_score"
+
+# 除外パターン
+exclude_patterns:
+  - "*.tmp"
+  - "*.log"
+  - ".*"
+  - "__pycache__"
+  - "node_modules"
+  - ".git"
+  - "*.pyc"
+  - ".DS_Store"
+
+# Vector DB設定
+vector_db:
+  default_type: "chroma"    # chroma, pinecone, weaviate, local
+  collection_name: "knowledge_base"
+  
+  # Chroma設定
+  chroma:
+    persist_directory: "common/vector_db/chroma"
+    
+  # Pinecone設定  
+  pinecone:
+    environment: "us-west1-gcp"
+    index_name: "knowledge-base"
+    
+  # Weaviate設定
+  weaviate:
+    url: "http://localhost:8080"
+    class_name: "KnowledgeChunk"
+
+# 埋め込みモデル設定
+embedding:
+  model: "text-embedding-ada-002"  # OpenAI
+  # model: "sentence-transformers/all-MiniLM-L6-v2"  # HuggingFace
+  batch_size: 100
+  max_retries: 3
+  retry_delay: 1
+
+# 検索設定
+search:
+  default_limit: 10
+  similarity_threshold: 0.7
+  rerank: true
+  
+# ログ設定
+logging:
+  level: "INFO"
+  file: "common/logs/ingest_knowledge.log"
+  max_size_mb: 10
+  backup_count: 5
+
+# パフォーマンス設定
+performance:
+  parallel_processing: true
+  max_workers: 4
+  batch_size: 50
+  
+# データ品質チェック
+quality_checks:
+  min_content_length: 50
+  max_content_length: 50000
+  check_encoding: true
+  validate_yaml: true 

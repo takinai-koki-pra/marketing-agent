@@ -1,0 +1,29 @@
+# ペルソナベースAIエージェント Python依存関係
+# 必須ライブラリ
+
+# AI・機械学習関連
+openai==1.3.0              # OpenAI API（ペルソナ生成用）
+anthropic==0.7.7           # Claude API（コード実行機能対応）
+scikit-learn==1.3.0         # 機械学習
+
+# データ分析・処理関連
+pandas==2.1.0               # データ分析
+numpy==1.24.0               # 数値計算
+openpyxl==3.1.2             # Excel読み書き（統計データ出力用）
+
+# HTTP通信・API関連
+requests==2.31.0            # HTTP通信・e-Stat API連携
+xmltodict==0.13.0           # e-Stat API XML→辞書変換
+
+# 環境設定・ユーティリティ
+python-dotenv==1.0.0        # 環境変数管理
+
+# データ可視化（オプション）
+matplotlib==3.7.0           # データ可視化
+seaborn==0.12.0             # 統計可視化
+plotly==5.15.0              # インタラクティブグラフ
+
+# 開発・テスト関連
+pytest==7.4.0              # テストフレームワーク
+black==23.7.0               # コードフォーマッター
+flake8==6.0.0               # コード品質チェック 

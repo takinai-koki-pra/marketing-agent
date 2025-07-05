@@ -1,0 +1,99 @@
+# ペルソナベースAIエージェント Python依存関係
+# AI駆動型企画案生成システム専用ライブラリ
+# Cursor + OpenAI API + データ分析 + プレゼンテーション生成対応
+
+# AI・機械学習（必須）
+openai==1.3.0                  # OpenAI API（ペルソナ生成・対話用、必須）
+anthropic==0.7.7               # Claude API（コード実行機能対応、必須）
+scikit-learn==1.3.0            # 機械学習・クラスタリング分析
+
+# データ処理・分析（必須）
+pandas==2.1.0                  # データ分析・統計処理
+numpy==1.24.0                  # 数値計算・配列処理
+openpyxl==3.1.2               # Excel読み込み・書き込み
+xlsxwriter==3.1.9             # Excel高度出力機能
+
+# HTTP通信・API（必須）
+requests==2.31.0               # HTTP通信・外部API連携・e-Stat API連携
+httpx==0.25.2                  # 非同期HTTP通信
+xmltodict==0.13.0              # e-Stat API XML→辞書変換
+
+# 環境変数・設定管理（必須）
+python-dotenv==1.0.0           # 環境変数管理（OpenAI APIキー用）
+pydantic==2.5.2                # データバリデーション・設定管理
+
+# 日付・時間処理
+python-dateutil==2.8.2         # 日付処理・パース機能
+
+# ログ出力（必須）
+loguru==0.7.2                  # 構造化ログ出力
+
+# データ可視化（オプション - 必要に応じて使用）
+matplotlib==3.7.0              # グラフ・チャート生成
+seaborn==0.12.0                # 統計可視化・美しいグラフ
+plotly==5.15.0                 # インタラクティブグラフ・HTML出力
+
+# テキスト処理・自然言語処理（オプション）
+nltk==3.8.1                    # 自然言語処理（必要に応じて）
+# janome==0.4.2                # 日本語形態素解析（必要に応じて）
+
+# ファイル・ドキュメント処理
+pypdf2==3.0.1                  # PDF読み込み・処理
+python-docx==0.8.11            # Word文書処理
+markdown==3.5.1                # Markdown処理・変換
+
+# Web関連（軽量API用 - オプション）
+fastapi==0.104.1               # 軽量APIフレームワーク（必要に応じて）
+uvicorn==0.24.0                # ASGI サーバー（FastAPI用）
+
+# データベース（軽量DB用 - オプション）
+# sqlite3                        # SQLite（Python標準ライブラリ - 自動で利用可能）
+# sqlalchemy==2.0.23           # ORM（必要に応じて）
+
+# テスト・品質管理
+pytest==7.4.3                  # テストフレームワーク
+pytest-asyncio==0.21.1         # 非同期テスト対応
+
+# コード品質・フォーマット
+black==23.11.0                 # コードフォーマッター
+flake8==6.1.0                  # コード品質チェック
+mypy==1.7.1                    # 型チェック
+
+# ファイル処理・パス操作
+# pathlib                         # パス操作（Python標準ライブラリ - 自動で利用可能）
+# shutil                          # ファイル操作（Python標準ライブラリ - 自動で利用可能）
+
+# JSON・CSV処理
+# json                            # JSON処理（Python標準ライブラリ - 自動で利用可能）
+# csv                             # CSV処理（Python標準ライブラリ - 自動で利用可能）
+
+# 特記事項:
+# - OpenAI API キーが必要（.env設定必須）
+# - Windows 10/11 + PowerShell環境対応
+# - MARP（プレゼンテーション生成）はNode.js依存関係として別途package.json管理
+# - Cursor AI開発環境での使用を前提とした構成
+# - データ処理能力: CSV 10,000行、テキスト 5MB程度を想定
+
+# リサーチデータAPI統合（新規追加）
+tweepy==4.14.0                 # Twitter API v2 公式ライブラリ
+census==0.8.19                 # 米国国勢調査局API
+worldbank==0.11.1              # 世界銀行データAPI
+yfinance==0.2.28               # 金融・市場データAPI
+fred==3.1                      # 米国連邦準備制度データAPI
+
+# SNS・ソーシャルメディア分析
+instaloader==4.10.3            # Instagram データ取得
+beautifulsoup4==4.12.2         # Webスクレイピング（補助）
+selenium==4.15.0               # ブラウザ自動化（必要に応じて）
+
+# 自然言語処理・テキスト分析
+textblob==0.17.1               # 感情分析・テキスト処理
+vaderSentiment==3.3.2          # ソーシャルメディア感情分析
+
+# 地理・位置データ
+geopy==2.4.0                   # 地理的データ処理
+folium==0.14.0                 # 地図可視化
+
+# 統計・データサイエンス
+statsmodels==0.14.0            # 統計モデル
+scipy==1.11.0                  # 科学計算 

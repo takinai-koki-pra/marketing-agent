@@ -1,0 +1,106 @@
+name: Claude Code Action
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+  push:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  claude-code-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Node.js dependencies
+        run: |
+          npm install
+
+      - name: Claude Code Analysis
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # コードレビューとペルソナ分析の設定
+          analysis-type: 'comprehensive'
+          # マーケティングエージェント特化の設定
+          focus-areas: |
+            - Data analysis algorithms in agents/persona/
+            - Visualization code quality
+            - API endpoints security
+            - Docker configuration
+            - Statistical analysis accuracy
+          # レビュー対象ファイル
+          include-patterns: |
+            agents/**/*.py
+            common/**/*.py
+            workflows/**/*.py
+            *.yml
+            *.yaml
+            *.json
+            *.md
+          # 除外パターン
+          exclude-patterns: |
+            venv/**
+            node_modules/**
+            __pycache__/**
+            *.log
+            outputs/**
+
+  persona-analysis-test:
+    runs-on: ubuntu-latest
+    needs: claude-code-review
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run persona analysis test
+        run: |
+          python agents/persona/workflows/persona-analyzer.py --sample --test
+        
+      - name: Claude Code Test Analysis
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          analysis-type: 'test-results'
+          context: |
+            Analyze the persona analysis test results and provide insights on:
+            - Statistical accuracy of persona generation
+            - Data visualization quality
+            - Algorithm performance
+            - Recommendations for improvement 
