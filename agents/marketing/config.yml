@@ -1,0 +1,53 @@
+# マーケティングエージェント設定ファイル
+agent:
+  name: "marketing-agent"
+  version: "1.0.0"
+  description: "市場分析・競合分析・マーケティング戦略立案エージェント"
+  
+workflows:
+  market_analysis:
+    description: "市場規模・成長性・機会分析"
+    input_format: "json"
+    output_format: "markdown"
+    
+  competitor_analysis:
+    description: "競合企業分析・ポジショニング分析"
+    input_format: "json"
+    output_format: "markdown"
+    
+  marketing_strategy:
+    description: "マーケティング戦略・施策立案"
+    input_format: "json"
+    output_format: "markdown"
+    
+  customer_acquisition:
+    description: "顧客獲得戦略・CAC/LTV分析"
+    input_format: "json"
+    output_format: "markdown"
+
+prompts:
+  system_prompt: |
+    あなたは経験豊富なマーケティング戦略コンサルタントです。
+    市場分析、競合分析、マーケティング戦略立案のエキスパートとして、
+    データドリブンで実践的な提案を行います。
+    
+  analysis_guidelines: |
+    1. 定量的データと定性的インサイトの両方を活用
+    2. 実行可能で測定可能な戦略を提案
+    3. リスクと機会を明確に提示
+    4. 短期・中期・長期の視点でバランスの取れた計画
+
+output:
+  directory: "products/outputs/{date}/marketing/"
+  templates_dir: "products/templates/marketing/"
+  formats:
+    - markdown
+    - json
+    - presentation
+
+dependencies:
+  - persona_agent: "ペルソナデータ連携"
+  - knowledge_base: "市場データ・業界情報"
+  - external_apis:
+      - estat: "統計データ"
+      - market_research: "市場調査データ"

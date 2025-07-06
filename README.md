@@ -33,7 +33,7 @@
 
 ```powershell
 # 1. プロジェクトディレクトリに移動
-cd 010_marketing_agent
+cd marketing-agent
 
 # 2. Claude API依存関係インストール
 pip install anthropic==0.7.7
@@ -51,7 +51,7 @@ $env:ANTHROPIC_API_KEY = "your_anthropic_api_key_here"
 
 ```powershell
 # 1. プロジェクトディレクトリに移動
-cd 010_marketing_agent
+cd marketing-agent
 
 # 2. Docker環境起動
 docker-compose up -d --build
@@ -78,10 +78,10 @@ npm install
 
 ```powershell
 # Claude Code機能でペルソナ分析実行
-python agents/persona/workflows/claude-code-analyzer.py --date $(Get-Date -Format "yyyyMMdd") --verbose
+python agents/persona/workflows/claude_code_analyzer.py --date $(Get-Date -Format "yyyyMMdd") --verbose
 
 # 特定の日付で実行
-python agents/persona/workflows/claude-code-analyzer.py --date 20250129 --verbose
+python agents/persona/workflows/claude_code_analyzer.py --date 20250129 --verbose
 ```
 
 **Claude Code機能の特徴:**
@@ -94,8 +94,8 @@ python agents/persona/workflows/claude-code-analyzer.py --date 20250129 --verbos
 
 ```powershell
 # Docker環境でペルソナ分析実行
-docker-compose exec persona-agent python agents/persona/workflows/setup-project.py --date $(Get-Date -Format "yyyyMMdd")
-docker-compose exec persona-agent python agents/persona/workflows/persona-analyzer.py --project $(Get-Date -Format "yyyyMMdd") --sample
+docker-compose exec persona-agent python agents/persona/workflows/setup_project.py --date $(Get-Date -Format "yyyyMMdd")
+docker-compose exec persona-agent python agents/persona/workflows/persona_analyzer.py --project $(Get-Date -Format "yyyyMMdd") --sample
 ```
 
 **出力ファイル:**
